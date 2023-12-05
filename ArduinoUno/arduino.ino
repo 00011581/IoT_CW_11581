@@ -10,18 +10,11 @@ int DHT11_PIN = 12;
 int PHOTORES_PIN = A2;
 int SOIL_MOISTURE_PIN = A1;
 
-// PIN values for sensors
+// PIN values for actuators
 int IS_ACTIVE = 1;
 int SERVO_PIN = 11;
-
-int enablePumpMotor = 9;
-int pumpMotorPin1 = 8;
-int pumpMotorPin2 = 7;
-
-int enableRoofMotor = 6;
-int roofMotorPin1 = 5;
-int roofMotorPin2 = 4;
-
+int ROOF_MOTOR_PIN = 9;
+int WATER_PUMP_PIN = 8;
 
 // Declaring objects
 dht DHT;
@@ -53,13 +46,8 @@ void setup() {
 
   // Activators pins
   pinMode(SERVO_PIN, OUTPUT);
-  pinMode(enablePumpMotor, OUTPUT);
-  pinMode(pumpMotorPin1, OUTPUT);
-  pinMode(pumpMotorPin2, OUTPUT);
-
-  pinMode(enableRoofMotor, OUTPUT);
-  pinMode(roofMotorPin1, OUTPUT);
-  pinMode(roofMotorPin2, OUTPUT);
+  pinMode(ROOF_MOTOR_PIN, OUTPUT);
+  pinMode(WATER_PUMP_PIN, OUTPUT);
 
   lcd.begin();  // Beginning LCD
   lcd.backlight();  // Activating backlight of LCD
@@ -119,13 +107,10 @@ void rotateServoMotor() {
 void startWaterPump() {
   if (waterPumpStatus == IS_ACTIVE) {
     Serial.println("STARTED WATER PUMP");
-    digitalWrite(pumpMotorPin1, LOW);
-    digitalWrite(pumpMotorPin2, HIGH);
-    analogWrite(enablePumpMotor, 200);
+    digitalWrite(WATER_PUMP_PIN, HIGH);
   }
   else {
-    digitalWrite(pumpMotorPin1, LOW);
-    analogWrite(enablePumpMotor, 0);
+    digitalWrite(WATER_PUMP_PIN, LOW);
     Serial.println("STOPPED WATER PUMP");
   }
 }
@@ -133,13 +118,10 @@ void startWaterPump() {
 void rotateRoofMotor() {
   if (roofMotorStatus == IS_ACTIVE) {
     Serial.println("STARTED ROOF MOTOR");
-    digitalWrite(roofMotorPin1, HIGH);
-    digitalWrite(roofMotorPin2, LOW);
-    analogWrite(enableRoofMotor, 150);    
+    digitalWrite(ROOF_MOTOR_PIN, HIGH);
   }
   else {
-    digitalWrite(roofMotorPin1, LOW);
-    analogWrite(enableRoofMotor, 0); 
+    digitalWrite(ROOF_MOTOR_PIN, LOW);
     Serial.println("STOPPED ROOF MOTOR");
   }
 }
@@ -201,8 +183,3 @@ void receiveActivatorDataFromNodeMCU(){
   Serial.print(" roofMotorStatus ");
   Serial.println(roofMotorStatus);
 }
-
-
-
-
-
