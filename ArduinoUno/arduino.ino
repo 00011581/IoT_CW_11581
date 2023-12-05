@@ -13,8 +13,8 @@ int SOIL_MOISTURE_PIN = A1;
 // PIN values for actuators
 int IS_ACTIVE = 1;
 int SERVO_PIN = 11;
-int ROOF_MOTOR_PIN = 9;
-int WATER_PUMP_PIN = 8;
+int ROOF_MOTOR_PIN = 8;
+int WATER_PUMP_PIN = 7;
 
 // Declaring objects
 dht DHT;
